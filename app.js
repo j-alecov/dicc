@@ -11,7 +11,7 @@ require('./models/Words');
 require('./models/Comments');
 require('./models/Users');
 require('./config/passport');
-mongoose.connect('mongodb://localhost/dicc');
+mongoose.connect('mongodb://admin:z1p.zap@ds141242.mlab.com:41242/dicc');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
