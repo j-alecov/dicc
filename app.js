@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var port = process.env.PORT || 8000;
 
 require('./models/Words');
 require('./models/Comments');
@@ -64,10 +63,6 @@ app.use(function(err, req, res, next) {
         message: err.message,
         error: {}
     });
-});
-
-server.listen(port, function() {
-    console.log("App is running on port " + port);
 });
 
 module.exports = app;
