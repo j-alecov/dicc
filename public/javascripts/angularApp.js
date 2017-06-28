@@ -12,8 +12,10 @@ app.config([
 				postPromise: ['posts', function(posts){
 					return posts.getAll();
 				}],
-				votedPromise: ['voted', function(voted){
-					return voted.getAll();
+				votedPromise: ['voted', 'auth' function(voted, auth){
+					if (auth.isLoggedIn()) {
+						return voted.getAll();
+					}
 				}]
 			}
 		})
