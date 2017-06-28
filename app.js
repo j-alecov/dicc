@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var port = process.env.PORT || 8000;
 
 require('./models/Words');
 require('./models/Comments');
@@ -65,8 +66,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.listen(process.env.PORT || 8000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+server.listen(port, function() {
+    console.log("App is running on port " + port);
 });
 
 module.exports = app;
