@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		 <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+		<title>Diccioñero</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/style.css">
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+		<script src="/javascripts/angularApp.js"></script>
+		<style> .glyphicon-thumbs-up </style>
+		<link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="images/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="images/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+		<link rel="manifest" href="images/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="images/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+	</head>
+	<body ng-app="diccionero">
+	<nav class="navbar navbar-toggleable-md navbar-inverse" style="background-color: #fb8c00;" ng-controller="NavCtrl">
+	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <a class="navbar-brand" href="#/home">
+	    <img src="images/l_m.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+	    diccioñero
+	  </a>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <form class="form-inline my-3 my-lg-0">
+	      <button class="btn btn-search my-2 my-sm-0" type="button" ng-click="changeState()" style="margin-right:15px;"><i class="fa fa-plus"></i></button>
+	    </form>
+	  <!-- <form class="form-inline my-3 my-lg-0">
+	      <input class="form-control mr-sm-2" type="text" placeholder="" ng-model="searchBar">
+	      <button class="btn btn-search my-2 my-sm-0" type="button"><i class="fa fa-search"></i></button>
+	    </form> search bar form, look into it later-->
+	  </div>
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <ul class="navbar-nav ml-auto justify-content-end">
+	  		<li class="nav-item active" ng-show="isLoggedIn()"><a class="nav-link"><i class="fa fa-user-circle"></i></a></li>
+	      	<li class="nav-item active" ng-show="isLoggedIn()"><a class="nav-link">{{ currentUser() }}</a></li>
+			  <li class="nav-item" ng-show="isLoggedIn()"><a class="nav-link" href="" ng-click="logOut()">Cerrar sesión</a></li>
+			  <li class="nav-item active" ng-hide="isLoggedIn()"><a class="nav-link" href="/#/login">Iniciar sesión</a></li>
+			  <li class="nav-item active" ng-hide="isLoggedIn()"><a class="nav-link" href="/#/register">Registrarse</a></li>
+	    </ul>
+	   </div>
+	</nav>
+		<div class="row">
+			<div class="col-md-12 col-md-offset-3">
+			<ui-view></ui-view>
+			</div>
+		</div>
+		<script type="text/ng-template" id="/home.html">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="span6" style="float: none; margin: 0 auto; margin-top: 50px;"> <img src="images/diccionero.png" class="img-fluid" alt="Responsive image"></div>
+					</div>
+					<div class="row" style="margin-top: 70px;">
+						<div class="col"></div>
+						<div class="col-10">
+							<form>
+									<div class="input-group">
+								<input ng-model="searchBox" class="form-control" type="text" placeholder="Busca modismos de la lengua española…">
+	      <button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+	      						</div>
+							</form>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div ng-show="searchBox" ng-repeat="post in posts | orderBy: '-upvotes' | filter:{ title: searchBox}">
+				<div class="container-fluid">
+					<div class="row" style="margin-top: 20px;">
+						<div class="col"></div>
+						<div class="col-10">
+							<span style="font-size:25px; margin-left:10px;">
+							<a ng-show="post.link" href="{{post.link}}">{{post.title}}</a>
+							<span ng-hide="post.link">{{post.title}}:</span>
+						</span>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row" style="margin-top: 5px;">
+						<div class="col"></div>
+						<div class="col-10">
+							<span style="font-size:20px; margin-left:10px;">
+							{{post.definition}}
+							</span>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row" style="margin-top: 5px;">
+						<div class="col"></div>
+						<div class="col-10">
+							<span style="font-size:20px; margin-left:10px;">
+							<i>"{{post.example}}"</i>
+							</span>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-7">
+							<span ng-show="post.author">
+							  publicado por <a>{{post.author}}</a>
+							</span>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-7">
+							<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="incrementUpvotes(post)" ng-disabled="IsVotedAlready(post._id)"><i class="fa fa-thumbs-up"></i></button>
+								{{post.upvotes}}
+							<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="decrementUpvotes(post)" ng-disabled="IsVotedAlready(post._id)"><i class="fa  fa-thumbs-down"></i></button>
+								{{post.downvotes}}
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-7">
+							<span>
+								<a href="#/posts/{{post._id}}">Comentarios</a>
+							</span>
+						</div>
+						<div class="col"></div>
+					</div>
+				</div>
+			</div>
+					<div ng-hide="searchBox" class="row" style="margin-top: 150px; background-color: #fb8c00;">
+						<div class="col"></div>
+						<div class="col-10">
+							<img src="images/page-1.svg" style="float: left; margin-right: 20px; display: inline-block;">
+							<h2 style="color: #ffffff; display: inline-block;">Populares</h2>
+						</div>
+						<div class="col"></div>
+					</div>
+				</div>
+			<div ng-hide="searchBox" ng-repeat="post in posts | orderBy: '-upvotes' | limitTo: 5">
+				<div class="container-fluid">
+					<div class="row" style="margin-top: 20px;">
+						<div class="col"></div>
+						<div class="col-10">
+							<span style="font-size:25px; margin-left:10px;">
+							<a ng-show="post.link" href="{{post.link}}">{{post.title}}</a>
+							<span ng-hide="post.link">{{post.title}}</span>
+						</span>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row" style="margin-top: 5px;">
+						<div class="col"></div>
+						<div class="col-10">
+							<span style="font-size:20px; margin-left:10px;">
+							"{{post.definition}}"
+							</span>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-7">
+							<span ng-show="post.author">
+							  posted by <a>{{post.author}}</a>
+							</span>
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-7">
+							<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="incrementUpvotes(post)" ng-disabled="IsVotedAlready(post._id)"><i class="fa fa-thumbs-up"></i></button>
+								{{post.upvotes}}
+							<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="decrementUpvotes(post)" ng-disabled="IsVotedAlready(post._id)"><i class="fa  fa-thumbs-down"></i></button>
+								{{post.downvotes}}
+						</div>
+						<div class="col"></div>
+					</div>
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-7">
+							<span>
+								<a href="#/posts/{{post._id}}">Comentarios</a>
+							</span>
+						</div>
+						<div class="col"></div>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type="text/ng-template" id="/post.html">
+			<div class="page-header">
+				<div class="container-fluid">
+					<div class="row" style="margin-top: 50px;">
+						<div class="col"></div>
+						<div class="col-11">
+							<h3>Añadir una nueva palabra o frase</h3>
+						</div>
+						<div class="col"></div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid">
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<div style="margin-top: 150px;" ng-hide="isLoggedIn()">
+					  <h3>Necesitas <a href="/#/login">Iniciar Sesión</a> o <a href="/#/register">Registrarte</a> antes de publicar.</h3>
+					</div>
+					<form ng-submit="addPost()"  ng-show="isLoggedIn()" style="margin-top:30px;">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Palabra o frase" ng-model="title"></input>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Definición" ng-model="definition"></input>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Ahora úsala en una oración" ng-model="example"></input>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="País" ng-model="country"></input>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="#tags" ng-model="tags"></input>
+					</div>
+					<button class="btn btn-search my-2 my-sm-0" type="submit"><i class="fa fa-plus"></i></button>
+			</form>
+				</div>
+				<div class="col-2"></div>
+			</div>
+		</div>
+		</script>
+		<script type="text/ng-template" id="/posts.html">
+			<div class="container-fluid">
+				<div class="row" style="margin-top: 30px;">
+					<div class="col"></div>
+					<div class="col-7">
+						<h3>{{post.title}} :</h3>
+					</div>
+					<div class="col-3">
+						<h3>
+							<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="incrementUpvotes(post)" ng-disabled="IsVotedAlready(post._id)"><i class="fa fa-thumbs-up"></i></button>
+								{{post.upvotes}}
+							<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="decrementUpvotes(post)" ng-disabled="IsVotedAlready(post._id)"><i class="fa  fa-thumbs-down"></i></button>
+								{{post.downvotes}}
+						</h3>
+					</div>
+					<div class="col"></div>
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div class="col"></div>
+					<div class="col-10">
+						<p>
+							{{post.definition}}
+						</p>
+					</div>
+					<div class="col"></div>
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div class="col"></div>
+					<div class="col-10">
+						<p>
+							<i>"{{post.example}}"</i>
+						</p>
+					</div>
+					<div class="col"></div>
+				</div>
+
+				<div class="row" style="margin-top: 10px;">
+					<div class="col"></div>
+					<div class="col-7">
+					</div>
+					<div class="col-4">
+						<p>
+							por: {{post.author}}
+						</p>
+					</div>
+				</div>
+
+				<div class="row" style="margin-top: 10px;">
+					<div class="col"></div>
+					<div class="col-10">
+						<h3>Comentarios</h3>
+					</div>
+					<div class="col">
+					</div>
+				</div>
+				
+				
+			</div>
+			<div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col"></div>
+					<div class="col-10">
+						<span style= "margin-left: 10px; margin-top: 5px;">
+							<p>{{comment.body}}</p>
+						</span>
+						 por: {{comment.author}}
+						<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="incrementUpvotesC(comment)" ng-disabled="IsVotedAlreadyC(comment._id)"><i class="fa fa-thumbs-up"></i></button>
+							{{comment.upvotes}}
+						<button class="btn btn-search my-2 my-sm-0" type="button" ng-click="decrementUpvotesC(comment)" ng-disabled="IsVotedAlreadyC(comment._id)"><i class="fa  fa-thumbs-down"></i></button>
+							{{comment.downvotes}}
+					</div>
+					<div class="col"></div>
+				</div>
+			</div>
+			</div>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col"></div>
+					<div class="col-10">
+						<div ng-hide="isLoggedIn()">
+						  <h3>Necesitas <a href="/#/login">Iniciar Sesión</a> o <a href="/#/register">Registrarte</a> antes de comentar.</h3>
+						</div>
+						<form ng-submit="addComment()" ng-show="isLoggedIn()" style="margin-top: 30px;">
+							<h3>Añade un comentario.</h3>
+							<div class="form-group">
+								<input type="text" name="form-control" placeholder="comentario" ng-model="body"></input>
+								<button type="submit" class="btn btn-search"><i class="fa fa-comment"></i></button>
+							</div>
+						</form>
+					</div>
+					<div class="col"></div>
+				</div>
+			</div>
+			
+		</script>
+		<script type="text/ng-template" id="/register.html">
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-10">
+					<div class="page-header" style="margin-top: 20px;">
+						<h1>Registro</h1>
+					  </div>
+
+					  <div ng-show="error" class="alert alert-danger row">
+						<span>{{ error.message }}</span>
+					  </div>
+
+					  <form ng-submit="register()"
+						style="margin-top:30px;">
+
+						<div class="form-group">
+						  <input type="text"
+						  class="form-control"
+						  placeholder="Usuario"
+						  ng-model="user.username"></input>
+						</div>
+						<div class="form-group">
+						  <input type="password"
+						  class="form-control"
+						  placeholder="Contraseña"
+						  ng-model="user.password"></input>
+						</div>
+						<button type="submit" class="btn btn-search">Registrarse</button>
+					  </form>
+				</div>
+				<div class="col"></div>
+			</div>
+		</div>
+		</script>
+		<script type="text/ng-template" id="/login.html">
+		  <div class="page-header">
+
+		  <div class="container-fluid">
+		  	<div class="row" style="margin-top: 20px;">
+		  		<div class="col"></div>
+		  		<div class="col-10">
+		  			<h1>Iniciar sesión</h1>
+				  <div ng-show="error" class="alert alert-danger row">
+					<span>{{ error.message }}</span>
+				  </div>
+
+				  <form ng-submit="logIn()"
+					style="margin-top:30px;">
+					<h3></h3>
+
+					<div class="form-group">
+					  <input type="text"
+					  class="form-control"
+					  placeholder="Usuario"
+					  ng-model="user.username"></input>
+					</div>
+					<div class="form-group">
+					  <input type="password"
+					  class="form-control"
+					  placeholder="Contraseña"
+					  ng-model="user.password"></input>
+					</div>
+					<button type="submit" class="btn btn-search">Iniciar sesión</button>
+				  </form>
+		  		</div>
+		  		<div class="col"></div>
+		  	</div>
+		  </div>
+
+			
+		</script>		
+	</body>
+</html>
